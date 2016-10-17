@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="#OC消息机制解析
-消息机制是OC Runtime的一个重要机制OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过m">
+<meta name="description" content="消息机制是OC Runtime的一个重要机制OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到test">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC消息机制解析">
 <meta property="og:url" content="http://yoursite.com/2016/10/17/OCMessageAnalysis/index.html">
 <meta property="og:site_name" content="Liangce">
-<meta property="og:description" content="#OC消息机制解析
-消息机制是OC Runtime的一个重要机制OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过m">
-<meta property="og:updated_time" content="2016-10-17T12:27:08.000Z">
+<meta property="og:description" content="消息机制是OC Runtime的一个重要机制OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到test">
+<meta property="og:updated_time" content="2016-10-17T12:34:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC消息机制解析">
-<meta name="twitter:description" content="#OC消息机制解析
-消息机制是OC Runtime的一个重要机制OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过m">
+<meta name="twitter:description" content="消息机制是OC Runtime的一个重要机制OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到test">
 
 
 
@@ -319,9 +316,8 @@
       
 
       
-        <p>#OC消息机制解析</p>
-<p>消息机制是OC Runtime的一个重要机制<br>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br><a id="more"></a></p>
-<p>##如何通过对象找到调用函数的地址？<br>@selector(testMethod:)会返回一个SEL变量,该变量以char *的形式将方法对应成一个唯一的值，实际上就是根据方法名hash化了的一个字符串，这个值会以key-value的形式标识对应的函数地址</p>
+        <p>消息机制是OC Runtime的一个重要机制<br>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br><a id="more"></a></p>
+<h2 id="如何通过对象找到调用函数的地址？"><a href="#如何通过对象找到调用函数的地址？" class="headerlink" title="如何通过对象找到调用函数的地址？"></a>如何通过对象找到调用函数的地址？</h2><p>@selector(testMethod:)会返回一个SEL变量,该变量以char *的形式将方法对应成一个唯一的值，实际上就是根据方法名hash化了的一个字符串，这个值会以key-value的形式标识对应的函数地址</p>
 <p>NSObject的成员属性中有一个指向对象的类的指针isa，如下：</p>
 
       
@@ -352,20 +348,6 @@
         </div>
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/10/17/hello-world/" rel="next" title="Hello World1234">
-                <i class="fa fa-chevron-left"></i> Hello World1234
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
       
 
       
@@ -430,7 +412,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">1</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -438,7 +420,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -447,7 +429,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -476,7 +458,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何通过对象找到调用函数的地址？"><span class="nav-number">1.</span> <span class="nav-text">如何通过对象找到调用函数的地址？</span></a></li></ol></div>
             
           </div>
         </section>
