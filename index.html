@@ -259,118 +259,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/10/17/aa/" itemprop="url">
-                  aa
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-17T14:35:03+08:00" content="2016-10-17">
-              2016-10-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/game/" itemprop="url" rel="index">
-                    <span itemprop="name">game</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/10/17/OCMessageAnalysis/" itemprop="url">
                   OC消息机制解析
                 </a>
@@ -433,126 +321,13 @@
 
       
         
-          
-            <p>#OC消息机制解析</p>
-<p>消息机制是OC Runtime的一个重要机制<br>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。</p>
-<p>##如何通过对象找到调用函数的地址？<br>@selector(testMethod:)会返回一个SEL变量,该变量以char *的形式将方法对应成一个唯一的值，实际上就是根据方法名hash化了的一个字符串，这个值会以key-value的形式标识对应的函数地址</p>
-<p>NSObject的成员属性中有一个指向对象的类的指针isa，如下：</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/17/Second-asd/" itemprop="url">
-                  Second asd
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-17T12:18:12+08:00" content="2016-10-17">
-              2016-10-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Diary/" itemprop="url" rel="index">
-                    <span itemprop="name">Diary</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>q3 t4wb4nywermynetbwettrnbgtwberb</p>
-
-          
+          <p>#OC消息机制解析</p>
+<p>消息机制是OC Runtime的一个重要机制<br>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/17/OCMessageAnalysis/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -722,7 +497,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
