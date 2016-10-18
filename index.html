@@ -311,7 +311,8 @@
 
       
         
-          <p>消息机制是OC Runtime的一个重要机制<br>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br>
+          <p>消息机制是OC Runtime的一个重要机制</p>
+<p>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/10/17/OCMessageAnalysis/#more" rel="contents">
               阅读全文 &raquo;
