@@ -311,28 +311,15 @@
 
       
         
-          
-            <p>假设有一个类Person：NSObject，在类的实例方法中调用：</p>
+          <p>假设有一个类Person：NSObject，在类的实例方法中调用：</p>
 <p>NSLog(@”%@”, [self class]);</p>
 <p>NSLog(@”%@”, [super class]);</p>
-<p>会发现这两行的输出结果都是Person。</p>
-<h2 id="Self是什么？"><a href="#Self是什么？" class="headerlink" title="Self是什么？"></a>Self是什么？</h2><p>self是OC提供的保留字，代表当前方法的调用者，在实例方法中指向对象，在静态方法中指向类，self是方法的隐藏的参数变量，另外一个隐藏参数变量是SEL _cmd，代表当前方法的@selector。</p>
-<h2 id="Super是什么？"><a href="#Super是什么？" class="headerlink" title="Super是什么？"></a>Super是什么？</h2><p>super是OC提供的保留字，但不是隐藏参数，它只是一个编译器指示符。发送调用方法的消息时，指定方法查找的位置在父类。</p>
-<p>我们知道调用self.class时，其实是runtime库调用objc_msgSend(self, @selector(getClass))<br>那么调用super.class，在运行时则变为objc_msgSendSuper(struct objc_super *super, SEL op, …)<br>这个objc_super的构造如下：</p>
-<pre><code>struct objc_super {
-
-__unsafe_unretained id receiver;
-#if !defined(__cplusplus)  &amp;&amp;  !__OBJC2__
-__unsafe_unretained Class class;
-
-#else
-__unsafe_unretained Class super_class;
-#endif
-
-};
-</code></pre><p>其中receiver指向了类Person的实例，而super_class指向Person的父类，当执行objc_msgSendSuper时，会从super_class的方法列表中开始查找，也就是跳过了Person类的查找。那么找到方法后回向receiver发送消息，关键就在于这里，向receiver发送消息等同于objc_msgSend(receiver, @selector(getClass))，也就是说，super.class和self.class的消息接受者是一样的，也就是Person的实例，所以最终获得的Class都是Person类。</p>
-
-          
+<p>会发现这两行的输出结果都是Person。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/18/self-class-super-class/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

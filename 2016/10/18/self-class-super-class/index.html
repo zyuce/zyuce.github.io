@@ -87,8 +87,7 @@
 <meta name="description" content="假设有一个类Person：NSObject，在类的实例方法中调用：
 NSLog(@”%@”, [self class]);
 NSLog(@”%@”, [super class]);
-会发现这两行的输出结果都是Person。
-Self是什么？self是OC提供的保留字，代表当前方法的调用者，在实例方法中指向对象，在静态方法中指向类，self是方法的隐藏的参数变量，另外一个隐藏参数变量是SEL _cm">
+会发现这两行的输出结果都是Person。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="self.class==super.class">
 <meta property="og:url" content="http://yoursite.com/2016/10/18/self-class-super-class/index.html">
@@ -96,16 +95,14 @@ Self是什么？self是OC提供的保留字，代表当前方法的调用者，�
 <meta property="og:description" content="假设有一个类Person：NSObject，在类的实例方法中调用：
 NSLog(@”%@”, [self class]);
 NSLog(@”%@”, [super class]);
-会发现这两行的输出结果都是Person。
-Self是什么？self是OC提供的保留字，代表当前方法的调用者，在实例方法中指向对象，在静态方法中指向类，self是方法的隐藏的参数变量，另外一个隐藏参数变量是SEL _cm">
-<meta property="og:updated_time" content="2016-10-18T12:29:29.000Z">
+会发现这两行的输出结果都是Person。">
+<meta property="og:updated_time" content="2016-10-18T12:30:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="self.class==super.class">
 <meta name="twitter:description" content="假设有一个类Person：NSObject，在类的实例方法中调用：
 NSLog(@”%@”, [self class]);
 NSLog(@”%@”, [super class]);
-会发现这两行的输出结果都是Person。
-Self是什么？self是OC提供的保留字，代表当前方法的调用者，在实例方法中指向对象，在静态方法中指向类，self是方法的隐藏的参数变量，另外一个隐藏参数变量是SEL _cm">
+会发现这两行的输出结果都是Person。">
 
 
 
@@ -321,7 +318,7 @@ Self是什么？self是OC提供的保留字，代表当前方法的调用者，�
         <p>假设有一个类Person：NSObject，在类的实例方法中调用：</p>
 <p>NSLog(@”%@”, [self class]);</p>
 <p>NSLog(@”%@”, [super class]);</p>
-<p>会发现这两行的输出结果都是Person。</p>
+<p>会发现这两行的输出结果都是Person。<br><a id="more"></a></p>
 <h2 id="Self是什么？"><a href="#Self是什么？" class="headerlink" title="Self是什么？"></a>Self是什么？</h2><p>self是OC提供的保留字，代表当前方法的调用者，在实例方法中指向对象，在静态方法中指向类，self是方法的隐藏的参数变量，另外一个隐藏参数变量是SEL _cmd，代表当前方法的@selector。</p>
 <h2 id="Super是什么？"><a href="#Super是什么？" class="headerlink" title="Super是什么？"></a>Super是什么？</h2><p>super是OC提供的保留字，但不是隐藏参数，它只是一个编译器指示符。发送调用方法的消息时，指定方法查找的位置在父类。</p>
 <p>我们知道调用self.class时，其实是runtime库调用objc_msgSend(self, @selector(getClass))<br>那么调用super.class，在运行时则变为objc_msgSendSuper(struct objc_super *super, SEL op, …)<br>这个objc_super的构造如下：</p>
