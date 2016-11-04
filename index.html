@@ -249,6 +249,122 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/04/KVOSimulate/" itemprop="url">
+                  KVOSimulate
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-04T16:36:26+08:00" content="2016-11-04">
+              2016-11-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS简笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS简笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。</p>
+<h2 id="KVO原理简述"><a href="#KVO原理简述" class="headerlink" title="KVO原理简述"></a>KVO原理简述</h2><p>首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建一个该对象的子类，在子类中重写被监控属性的setter方法，在重写的setter方法中，子类会调用父类的setter方法，并且在setter方法执行的前后调用监听者的回调函数。同时，子类还会重写getClass方法，使其返回父类的Class，从而完成类的伪装。创建完子类之后，OC会将被监听对象isa指针指向新创建的子类，这样当子类调用相应属性的setter方法时，就会执行新的方法。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/04/KVOSimulate/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/30/WeeklyDiary20161030/" itemprop="url">
                   The Trip of Fragrance Hills
                 </a>
