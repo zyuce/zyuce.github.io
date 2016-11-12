@@ -1,0 +1,743 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kvo,runtime,objc," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。
+KVO原理简述首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KVOSimulate">
+<meta property="og:url" content="http://yoursite.com/2016/11/04/KVOSimulate/index.html">
+<meta property="og:site_name" content="Liangce">
+<meta property="og:description" content="KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。
+KVO原理简述首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建">
+<meta property="og:updated_time" content="2016-11-04T08:51:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KVOSimulate">
+<meta name="twitter:description" content="KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。
+KVO原理简述首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> KVOSimulate | Liangce </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50b63aece88d7b294d72fec0deb27cc3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Liangce</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Stay hungry, Stay foolish.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                KVOSimulate
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-04T16:36:26+08:00" content="2016-11-04">
+              2016-11-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS简笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS简笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/04/KVOSimulate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/04/KVOSimulate/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。</p>
+<h2 id="KVO原理简述"><a href="#KVO原理简述" class="headerlink" title="KVO原理简述"></a>KVO原理简述</h2><p>首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建一个该对象的子类，在子类中重写被监控属性的setter方法，在重写的setter方法中，子类会调用父类的setter方法，并且在setter方法执行的前后调用监听者的回调函数。同时，子类还会重写getClass方法，使其返回父类的Class，从而完成类的伪装。创建完子类之后，OC会将被监听对象isa指针指向新创建的子类，这样当子类调用相应属性的setter方法时，就会执行新的方法。<br><a id="more"></a></p>
+<h2 id="KVO的缺陷"><a href="#KVO的缺陷" class="headerlink" title="KVO的缺陷"></a>KVO的缺陷</h2><p>KVO的功能并不全面，使用起来也有很多局限性。例如，KVO不支持自定义的selector，也不支持block，所有的通知都要在指定的回调函数中接收。另外，监听者的父类也有可能监听了一些对象属性，如果没有在子类中调用父类的方法，就会是父类的监听失效，而且，监听者是父类还是子类主要靠context来区分，一旦在子类监听中定义的context与父类重名，一方面父类的监听会失效，另一方面同一个keypath进行两次removeObserver操作会导致程序crash。</p>
+<h2 id="KVO具体实现过程"><a href="#KVO具体实现过程" class="headerlink" title="KVO具体实现过程"></a>KVO具体实现过程</h2><p>接下来我们通过代码来演示KVO的实现过程</p>
+<p>1.首先我们新建了一个NSObject类的Category，添加三个方法，分别是添加监听者、移除监听者以及属性值改变时的回调方法。<br>@interface NSObject (LKVO)</p>
+<ul>
+<li><p>(void)l_addObserver:(NSObject <em>)observer withKeyPath:(NSString </em>)keyPath;</p>
+</li>
+<li><p>(void) l_observingWithKeyPath:(NSString <em>)keyPath object:(NSObject </em>)observed change:(NSDictionary *)change;</p>
+</li>
+<li><p>(void)l_removeObserver:(NSObject <em>)observer keyPath:(NSString </em>)keyPath;</p>
+</li>
+</ul>
+<p>@end</p>
+<p>2.接下来实现l_addObserver:withKeyPath:方法</p>
+<pre><code>- (void)l_addObserver:(NSObject *)observer withKeyPath:(NSString *)keyPath {
+
+// 1.create KVO class
+Class obj_class = object_getClass(self);
+char const *class_name = class_getName(obj_class);
+
+char kvo_class_name[strlen(class_name)+strlen(LKVO_suffix)+1];
+strcpy(kvo_class_name, class_name);
+strcat(kvo_class_name, LKVO_suffix);
+
+Class kvo_class = objc_getClass(kvo_class_name);
+if (!kvo_class) {
+    kvo_class = objc_allocateClassPair(obj_class, kvo_class_name, 0);
+    objc_registerClassPair(kvo_class);
+
+    // 2.override getClass method
+    class_replaceMethod(kvo_class, NSSelectorFromString(@&quot;class&quot;), (IMP)fakeClassMethod, &quot;@@:&quot;);
+
+}
+
+// 3.replace setter method
+NSString *methodName = [NSString stringWithFormat:@&quot;%@%@&quot;, [[keyPath substringWithRange:NSMakeRange(0, 1)] uppercaseString], [keyPath substringWithRange:NSMakeRange(1, keyPath.length-1)]];
+NSString *selName = [NSString stringWithFormat:@&quot;set%@:&quot;, methodName];
+SEL selector = NSSelectorFromString(selName);
+class_replaceMethod(kvo_class, selector, (IMP)methodSetter, &quot;v@:@&quot;);
+
+// 4.change isa to KVO class
+object_setClass(self, kvo_class);
+
+
+// 5.associate observer with observed
+NSString *keyName = [NSString stringWithFormat:@&quot;%@%@&quot;, [[keyPath substringWithRange:NSMakeRange(0, 1)] lowercaseString], [keyPath substringWithRange:NSMakeRange(1, keyPath.length-1)]];
+id dict = objc_getAssociatedObject(self, key_associated);
+NSMutableDictionary *mDict = nil;
+if (dict &amp;&amp; [dict isKindOfClass:[NSDictionary class]]) {
+    mDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+} else {
+    mDict = [[NSMutableDictionary alloc] init];
+}
+NSMutableArray *array = [mDict valueForKey:keyPath];
+if (!array || ![array isKindOfClass:[NSMutableArray class]]) {
+    array = [[NSMutableArray alloc] init];
+}
+if (![array containsObject:observer]) {
+    [array addObject:observer];
+}
+[mDict setValue:array forKey:keyName];
+
+objc_setAssociatedObject(self, key_associated, mDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+</code></pre><p>}</p>
+<p>在这个方法中，第一步我们创建新类的名字，即原类名加上LKVO的后缀，然后在Runtime中搜索这个类，如果没有搜到，就新创建一个。第二步创建类的过程中替换他的getClass方法，替换如下：</p>
+<pre><code>Class fakeClassMethod(id self, SEL _cmd) {
+
+Class super_class = class_getSuperclass(object_getClass(self));
+struct objc_super *super = (struct objc_super *)malloc(sizeof(struct objc_super));
+super-&gt;receiver = self;
+super-&gt;super_class = super_class;
+
+typedef void (*MsgSendType)(struct objc_super*, SEL);
+MsgSendType msgSendType = (MsgSendType)objc_msgSendSuper;
+free(super);
+
+msgSendType(super, _cmd);
+return super_class;
+
+}
+</code></pre><p>在替换方法中会调用一次super的方法，但并不会返回super方法的返回值，因为super.class返回的依旧是Class Person，因此要返回通过class_getSuperclass获取的父类。值得注意的是，如果使用者重写了Person的getClass方法，比如让它返回个[NSString class]，那么调用[Person class]返回的依旧是Person，原因就在于方法被重写了，使用官方的KVO也会有这样的问题。</p>
+<p>第三步向新类中添加或替换相应属性的setter方法，当新类中不包含该方法时，class_replaceMethod会调用class_addMethod。</p>
+<p>第四步调用object_setClass，将self的isa指向新类。</p>
+<p>第五步要建立一个NSDictionary，并将它与对象绑定起来，NSDictionary中要存储每个keypath对应的监听者对象的数组，当调用setter方法时，会通过NSDictionary找到keypath对应的NSArray，对NSArray中的每一个监听者调用<br>l_observingWithKeyPath:object:change:方法。</p>
+<p>接下来就要重写setter的方法：</p>
+<pre><code>void methodSetter(id self, SEL _cmd, NSObject *newValue) {
+
+// invoke setter method from superClass
+struct objc_super *super = (struct objc_super *)malloc(sizeof(struct objc_super));
+super-&gt;receiver = self;
+super-&gt;super_class = class_getSuperclass(object_getClass(self));
+typedef void (*MsgSendType)(struct objc_super*, SEL, NSObject*);
+MsgSendType msgSend = (MsgSendType)objc_msgSendSuper;
+msgSend(super, _cmd, newValue);
+free(super);
+
+// get key path
+NSString *methodName = NSStringFromSelector(_cmd);
+methodName = [methodName substringWithRange:NSMakeRange(3, methodName.length-4)];
+NSString *keyPath = nil;
+if (methodName.length == 1) {
+    keyPath = [methodName lowercaseString];
+} else {
+    keyPath = [NSString stringWithFormat:@&quot;%@%@&quot;, [[methodName substringWithRange:NSMakeRange(0, 1)] lowercaseString], [methodName substringWithRange:NSMakeRange(1, methodName.length-1)]];
+}
+
+// invoke observing method
+NSDictionary *dict = objc_getAssociatedObject(self, key_associated);
+NSArray *array = [dict valueForKey:keyPath];
+if (array &amp;&amp; [array isKindOfClass:[NSArray class]]) {
+    for (NSObject *obj in array) {
+        [obj l_observingWithKeyPath:keyPath object:self change:@{@&quot;newValue&quot;:newValue}];
+    }
+}
+
+}
+</code></pre><p>首先要调用父类的setter方法，这样就完成了属性的赋值并且执行了使用者在setter中添加的其他代码。然后通过传入的SEL _cmd来获取方法名，通过方法名获取keypath的值。最后一步通过keypath在绑定的NSDictionary中找到监听改属性的对象的NSArray，依次调用他们的l_observingWithKeyPath:object:change:方法。</p>
+<p>最后附上示例代码地址<a href="https://github.com/zyuce/LKVO_Simulate" target="_blank" rel="external">https://github.com/zyuce/LKVO_Simulate</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kvo/" rel="tag">#kvo</a>
+          
+            <a href="/tags/runtime/" rel="tag">#runtime</a>
+          
+            <a href="/tags/objc/" rel="tag">#objc</a>
+          
+        </div>
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/04/KVOSimulate/"
+     data-title="KVOSimulate"
+     data-content=""
+     data-url="http://yoursite.com/2016/11/04/KVOSimulate/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/04/KVOSimulate/"
+           data-title="KVOSimulate" data-url="http://yoursite.com/2016/11/04/KVOSimulate/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.soideas.cn/uploads/allimg/140608/3-www.soideas.cn14060R05238.jpg"
+               alt="Liangce" />
+          <p class="site-author-name" itemprop="name">Liangce</p>
+          <p class="site-description motion-element" itemprop="description">Keep Raticent, Keep Crazy.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO原理简述"><span class="nav-number">1.</span> <span class="nav-text">KVO原理简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO的缺陷"><span class="nav-number">2.</span> <span class="nav-text">KVO的缺陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO具体实现过程"><span class="nav-number">3.</span> <span class="nav-text">KVO具体实现过程</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liangce</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lioncez"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
