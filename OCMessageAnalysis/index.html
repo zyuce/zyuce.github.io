@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="objc,消息机制,runtime," />
 
 
 
@@ -84,16 +84,23 @@
 
 
 
-<meta name="description" content="From this week, I will start to write weekly diary. Can not write some profound content, just talk some nonsense. On one hand, I like English, I could practice English by diary, on the other hand, it">
+<meta name="description" content="消息机制是OC Runtime的一个重要机制
+OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The New Start">
-<meta property="og:url" content="http://yoursite.com/2016/10/23/WeeklyDiary20161023/index.html">
+<meta property="og:title" content="OC消息机制解析">
+<meta property="og:url" content="http://liangce.space/OCMessageAnalysis/index.html">
 <meta property="og:site_name" content="Liangce">
-<meta property="og:description" content="From this week, I will start to write weekly diary. Can not write some profound content, just talk some nonsense. On one hand, I like English, I could practice English by diary, on the other hand, it">
-<meta property="og:updated_time" content="2016-10-23T16:17:53.000Z">
+<meta property="og:description" content="消息机制是OC Runtime的一个重要机制
+OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/2.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/3.png?raw=true">
+<meta property="og:updated_time" content="2016-10-18T12:32:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The New Start">
-<meta name="twitter:description" content="From this week, I will start to write weekly diary. Can not write some profound content, just talk some nonsense. On one hand, I like English, I could practice English by diary, on the other hand, it">
+<meta name="twitter:title" content="OC消息机制解析">
+<meta name="twitter:description" content="消息机制是OC Runtime的一个重要机制
+OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
+<meta name="twitter:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true">
 
 
 
@@ -121,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/23/WeeklyDiary20161023/"/>
+  <link rel="canonical" href="http://liangce.space/OCMessageAnalysis/"/>
 
 
 
 
 
-  <title> The New Start | Liangce </title>
+  <title> OC消息机制解析 | Liangce </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/23/WeeklyDiary20161023/">
+  <link itemprop="mainEntityOfPage" href="http://liangce.space/OCMessageAnalysis/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Liangce">
@@ -282,7 +289,7 @@
             
             
               
-                The New Start
+                OC消息机制解析
               
             
           </h1>
@@ -294,8 +301,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-23T11:44:20+08:00">
-              2016-10-23
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-17T12:43:18+08:00">
+              2016-10-17
             </time>
 
             &nbsp;|&nbsp;
@@ -303,8 +310,8 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-10-24T00:17:53+08:00">
-              2016-10-24
+            <time title="Post modified" itemprop="dateModified" datetime="2016-10-18T20:32:10+08:00">
+              2016-10-18
             </time>
             
           </span>
@@ -318,8 +325,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/WeeklyDiary/" itemprop="url" rel="index">
-                    <span itemprop="name">WeeklyDiary</span>
+                  <a href="/categories/iOS简笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS简笔记</span>
                   </a>
                 </span>
 
@@ -334,8 +341,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/23/WeeklyDiary20161023/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/23/WeeklyDiary20161023/" itemprop="commentCount"></span>
+                <a href="/OCMessageAnalysis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="OCMessageAnalysis/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -361,7 +368,28 @@
       
 
       
-        <p>From this week, I will start to write weekly diary. Can not write some profound content, just talk some nonsense. On one hand, I like English, I could practice English by diary, on the other hand, it can be written as a weekly record of life, the release of emotions, so why not?~ Graduation for three months, I can feel my rapid changes in my mind, and my time also goes by more faster than the original. Maybe I will think the passage of my time is calculated by month without weekly diary. But if I have written diaries, a month will be divided into four time to me at least, perhaps I will think the time is more slower, the life is more longer. Cherish the most beautiful youth, and strive to become better.</p>
+        <p>消息机制是OC Runtime的一个重要机制</p>
+<p>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br><a id="more"></a></p>
+<h2 id="如何通过对象找到调用函数的地址？"><a href="#如何通过对象找到调用函数的地址？" class="headerlink" title="如何通过对象找到调用函数的地址？"></a>如何通过对象找到调用函数的地址？</h2><p>@selector(testMethod:)会返回一个SEL变量,该变量以char *的形式将方法对应成一个唯一的值，实际上就是根据方法名hash化了的一个字符串，这个值会以key-value的形式标识对应的函数地址</p>
+<p>NSObject的成员属性中有一个指向对象的类的指针isa，如下：</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true" alt="NSObject isa"></p>
+<p>由于NSObject是所有类的根类，那么任何类的实例都会有一个指向实例的类的isa指针，类在c中是以struct的形式存在，可以在<objc runtime.h="">中找到objc_class：</objc></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/2.png?raw=true" alt="objc_class"></p>
+<p>objc_class中包含了:</p>
+<p><strong>isa</strong>: 类的isa指向它的metaclass</p>
+<p><strong>super_class</strong>：指向类的超类</p>
+<p><strong>name</strong>:类名 </p>
+<p><strong>version</strong>: 类的版本信息，初始化默认为0，可以通过runtime函数class_setVersion和class_getVersion进行修改、读取</p>
+<p><strong>info</strong>: 一些标识信息,如CLS_CLASS (0x1L) 表示该类为普通 class ，其中包含对象方法和成员变量;CLS_META (0x2L) 表示该类为 metaclass，其中包含类方法</p>
+<p><strong>instance_size</strong>: 该类的实例变量大小(包括从父类继承下来的实例变量)</p>
+<p><strong>ivars</strong>: 用于存储每个成员变量的地址</p>
+<p><strong>methodLists</strong>: 与 info 的一些标志位有关,如CLS_CLASS (0x1L),则存储对象方法，如CLS_META (0x2L)，则存储类方法</p>
+<p><strong>cache</strong>: 指向最近使用的方法的指针，用于提升效率</p>
+<p><strong>protocols</strong>: 存储该类遵守的协议</p>
+<h2 id="发送消息后如何查找方法"><a href="#发送消息后如何查找方法" class="headerlink" title="发送消息后如何查找方法"></a>发送消息后如何查找方法</h2><p>在程序运行时会给每个类的结构体分配一块空间，对象的isa指向的就是这块空间，所以当发送调用方法的消息后，runtime库会通过对象的isa找到类的结构体，然后通过SEL查找函数，先去objc_class的cache中查找，若不能找到，再去methodList中查找，若还不能找到，再去superClass中查找，找到后会将method放到对应objc_class的cache中，方便下次查找。</p>
+<p>通过SEL可以找到IMP，IMP是函数指针，指向方法实现，不同类可以有相同的SEL，但是对应IMP是不同的。找到方法实现后，将消息接受者对象、SEL、方法参数传递给方法实现，最终，将方法实现的返回值作为函数的返回值。</p>
+<h2 id="meta-class"><a href="#meta-class" class="headerlink" title="meta class"></a>meta class</h2><p>如果代码调用的是类方法，比如[NSString string]，那么objc_msgSend的第一个参数会传入该类的objc_class，然后通过它所指向的meta class去查找类方法。meta class用来存储类方法，类的元类会继承于类的超类的元类，类的元类的元类就是类的根类的元类，根类的superClass指向null，根类的元类的isa指向它自己。如下图：</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/3.png?raw=true" alt="meta_class"></p>
 
       
     </div>
@@ -383,13 +411,23 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/objc/" rel="tag"># objc</a>
+          
+            <a href="/tags/消息机制/" rel="tag"># 消息机制</a>
+          
+            <a href="/tags/runtime/" rel="tag"># runtime</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/18/self-class-super-class/" rel="next" title="self.class == super.class">
-                <i class="fa fa-chevron-left"></i> self.class == super.class
+              <a href="/FirstRegisterOrBrowser/" rel="next" title="购物类App，先注册还是先浏览后有需求再注册">
+                <i class="fa fa-chevron-left"></i> 购物类App，先注册还是先浏览后有需求再注册
               </a>
             
           </div>
@@ -398,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/10/30/WeeklyDiary20161030/" rel="prev" title="The Trip of Fragrance Hills">
-                The Trip of Fragrance Hills <i class="fa fa-chevron-right"></i>
+              <a href="/self-class-super-class/" rel="prev" title="self.class == super.class">
+                self.class == super.class <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -432,8 +470,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/23/WeeklyDiary20161023/"
-           data-title="The New Start" data-url="http://yoursite.com/2016/10/23/WeeklyDiary20161023/">
+      <div class="ds-thread" data-thread-key="OCMessageAnalysis/"
+           data-title="OC消息机制解析" data-url="http://liangce.space/OCMessageAnalysis/">
       </div>
     
   </div>

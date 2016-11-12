@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="创新," />
+  <meta name="keywords" content="objc,runtime,class," />
 
 
 
@@ -84,16 +84,25 @@
 
 
 
-<meta name="description" content="最近发生了一件事，暴风魔镜与开心麻花宣布达成VR战略合作关系，双方联手打造的三部舞台剧片段已在暴风魔镜App上线。这和我有什么关系呢？因为平时会对VR/AR动态有所关注，也和同样感兴趣的朋友一起交流，几个月前还一起探讨过VR+舞台剧的可行性，而那时还没有任何相关的新闻。其实VR+舞台剧也不是什么惊世骇俗的想法，但看到这条新闻时还是产生了一点感慨。想到了那句“1000个人有了点子，100个人准备做，">
+<meta name="description" content="假设有一个类Person：NSObject，在类的实例方法中调用：
+NSLog(@”%@”, [self class]);
+NSLog(@”%@”, [super class]);
+会发现这两行的输出结果都是Person。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="真实世界的创新">
-<meta property="og:url" content="http://yoursite.com/2016/04/14/InnvationInTheRealWorld/index.html">
+<meta property="og:title" content="self.class == super.class">
+<meta property="og:url" content="http://liangce.space/self-class-super-class/index.html">
 <meta property="og:site_name" content="Liangce">
-<meta property="og:description" content="最近发生了一件事，暴风魔镜与开心麻花宣布达成VR战略合作关系，双方联手打造的三部舞台剧片段已在暴风魔镜App上线。这和我有什么关系呢？因为平时会对VR/AR动态有所关注，也和同样感兴趣的朋友一起交流，几个月前还一起探讨过VR+舞台剧的可行性，而那时还没有任何相关的新闻。其实VR+舞台剧也不是什么惊世骇俗的想法，但看到这条新闻时还是产生了一点感慨。想到了那句“1000个人有了点子，100个人准备做，">
-<meta property="og:updated_time" content="2016-10-18T12:46:42.000Z">
+<meta property="og:description" content="假设有一个类Person：NSObject，在类的实例方法中调用：
+NSLog(@”%@”, [self class]);
+NSLog(@”%@”, [super class]);
+会发现这两行的输出结果都是Person。">
+<meta property="og:updated_time" content="2016-10-18T12:32:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="真实世界的创新">
-<meta name="twitter:description" content="最近发生了一件事，暴风魔镜与开心麻花宣布达成VR战略合作关系，双方联手打造的三部舞台剧片段已在暴风魔镜App上线。这和我有什么关系呢？因为平时会对VR/AR动态有所关注，也和同样感兴趣的朋友一起交流，几个月前还一起探讨过VR+舞台剧的可行性，而那时还没有任何相关的新闻。其实VR+舞台剧也不是什么惊世骇俗的想法，但看到这条新闻时还是产生了一点感慨。想到了那句“1000个人有了点子，100个人准备做，">
+<meta name="twitter:title" content="self.class == super.class">
+<meta name="twitter:description" content="假设有一个类Person：NSObject，在类的实例方法中调用：
+NSLog(@”%@”, [self class]);
+NSLog(@”%@”, [super class]);
+会发现这两行的输出结果都是Person。">
 
 
 
@@ -121,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/04/14/InnvationInTheRealWorld/"/>
+  <link rel="canonical" href="http://liangce.space/self-class-super-class/"/>
 
 
 
 
 
-  <title> 真实世界的创新 | Liangce </title>
+  <title> self.class == super.class | Liangce </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/14/InnvationInTheRealWorld/">
+  <link itemprop="mainEntityOfPage" href="http://liangce.space/self-class-super-class/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Liangce">
@@ -282,7 +291,7 @@
             
             
               
-                真实世界的创新
+                self.class == super.class
               
             
           </h1>
@@ -294,8 +303,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-14T00:09:45+08:00">
-              2016-04-14
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-18T20:13:52+08:00">
+              2016-10-18
             </time>
 
             &nbsp;|&nbsp;
@@ -303,7 +312,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-10-18T20:46:42+08:00">
+            <time title="Post modified" itemprop="dateModified" datetime="2016-10-18T20:32:18+08:00">
               2016-10-18
             </time>
             
@@ -318,8 +327,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
+                  <a href="/categories/iOS简笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS简笔记</span>
                   </a>
                 </span>
 
@@ -334,8 +343,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/14/InnvationInTheRealWorld/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/InnvationInTheRealWorld/" itemprop="commentCount"></span>
+                <a href="/self-class-super-class/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="self-class-super-class/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -361,9 +370,26 @@
       
 
       
-        <p>最近发生了一件事，暴风魔镜与开心麻花宣布达成VR战略合作关系，双方联手打造的三部舞台剧片段已在暴风魔镜App上线。这和我有什么关系呢？因为平时会对VR/AR动态有所关注，也和同样感兴趣的朋友一起交流，几个月前还一起探讨过VR+舞台剧的可行性，而那时还没有任何相关的新闻。其实VR+舞台剧也不是什么惊世骇俗的想法，但看到这条新闻时还是产生了一点感慨。想到了那句“1000个人有了点子，100个人准备做，只有一个人去做了”，想法不值钱，能利用现有资源和自身能力推动实现才是牛逼。由此由想到了罗辑思维《真实世界的创新》那一期<a id="more"></a>，总理说了“大众创业，万众创新”，或许大众创业属天方夜谭，但万众创新却是可能的。何为创新？不仅仅是发明了蒸汽机、计算机、互联网、智能机叫做创新，革新的技术不是我们普通人能实践的，然而计算机初期只有企业使用、因特网的发明也不过为了军事连接，那么能将这些技术推广至千家万户也可称为创新，这样的功劳离不开每一个新领域探索者的付出，同样，在行业中发现问题，数据化、归纳原因、提出方案、探索可行性、不断试错也可称为创新，每一个细小的改变积累起来成为大的创新。创新的产生不属于一个时刻，而是源于一小步又一小步的积累。</p>
-<p>一小步又一小步的积累，是死磕精神、工匠精神。简单、专注，正是自己所寻求的呈现方式，意识到广泛的搜集各类知识并没有给自己带来想要的改变，或许只是多了一些谈资、或许满足了一点学习的需求，或许它们会像乔布斯说的那样在未来某天串成一起，但是现在，它只能作为一种业余爱好。正如知乎上有人说的那样，“想做出成绩，少上点知乎吧，多把时间花在专业知识的积累上。”功利性的学习本该是枯燥的，至少不像读十万个为什么那般有趣。所以，终究要找到一个明确的目标，一个让自己保持专注、由复杂变简单的目标，这样才能集中一个发力点，探出自己极限的高度。心中已经有了一个选择，一个能让自己心跳加速、激动不已的选择，或许未来某一天，我能达成自己期望的境界：“每天早晨被工作带来的兴奋感唤醒”，那是一个能将生活、工作、理想结合的意愿，一个无神论者单纯的信仰。</p>
-<h2 id="Fighting！"><a href="#Fighting！" class="headerlink" title="Fighting！"></a>Fighting！</h2>
+        <p>假设有一个类Person：NSObject，在类的实例方法中调用：</p>
+<p>NSLog(@”%@”, [self class]);</p>
+<p>NSLog(@”%@”, [super class]);</p>
+<p>会发现这两行的输出结果都是Person。<br><a id="more"></a></p>
+<h2 id="Self是什么？"><a href="#Self是什么？" class="headerlink" title="Self是什么？"></a>Self是什么？</h2><p>self是OC提供的保留字，代表当前方法的调用者，在实例方法中指向对象，在静态方法中指向类，self是方法的隐藏的参数变量，另外一个隐藏参数变量是SEL _cmd，代表当前方法的@selector。</p>
+<h2 id="Super是什么？"><a href="#Super是什么？" class="headerlink" title="Super是什么？"></a>Super是什么？</h2><p>super是OC提供的保留字，但不是隐藏参数，它只是一个编译器指示符。发送调用方法的消息时，指定方法查找的位置在父类。</p>
+<p>我们知道调用self.class时，其实是runtime库调用objc_msgSend(self, @selector(getClass))<br>那么调用super.class，在运行时则变为objc_msgSendSuper(struct objc_super *super, SEL op, …)<br>这个objc_super的构造如下：</p>
+<pre><code>struct objc_super {
+
+__unsafe_unretained id receiver;
+#if !defined(__cplusplus)  &amp;&amp;  !__OBJC2__
+__unsafe_unretained Class class;
+
+#else
+__unsafe_unretained Class super_class;
+#endif
+
+};
+</code></pre><p>其中receiver指向了类Person的实例，而super_class指向Person的父类，当执行objc_msgSendSuper时，会从super_class的方法列表中开始查找，也就是跳过了Person类的查找。那么找到方法后回向receiver发送消息，关键就在于这里，向receiver发送消息等同于objc_msgSend(receiver, @selector(getClass))，也就是说，super.class和self.class的消息接受者是一样的，也就是Person的实例，所以最终获得的Class都是Person类。</p>
+
       
     </div>
 
@@ -386,7 +412,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/创新/" rel="tag"># 创新</a>
+            <a href="/tags/objc/" rel="tag"># objc</a>
+          
+            <a href="/tags/runtime/" rel="tag"># runtime</a>
+          
+            <a href="/tags/class/" rel="tag"># class</a>
           
         </div>
       
@@ -395,14 +425,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/OCMessageAnalysis/" rel="next" title="OC消息机制解析">
+                <i class="fa fa-chevron-left"></i> OC消息机制解析
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/24/FirstRegisterOrBrowser/" rel="prev" title="购物类App，先注册还是先浏览后有需求再注册">
-                购物类App，先注册还是先浏览后有需求再注册 <i class="fa fa-chevron-right"></i>
+              <a href="/WeeklyDiary20161023/" rel="prev" title="The New Start">
+                The New Start <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -435,8 +469,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/14/InnvationInTheRealWorld/"
-           data-title="真实世界的创新" data-url="http://yoursite.com/2016/04/14/InnvationInTheRealWorld/">
+      <div class="ds-thread" data-thread-key="self-class-super-class/"
+           data-title="self.class == super.class" data-url="http://liangce.space/self-class-super-class/">
       </div>
     
   </div>

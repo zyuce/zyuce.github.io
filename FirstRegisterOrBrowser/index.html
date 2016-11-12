@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="objc,消息机制,runtime," />
+  <meta name="keywords" content="注册,购物," />
 
 
 
@@ -84,23 +84,22 @@
 
 
 
-<meta name="description" content="消息机制是OC Runtime的一个重要机制
-OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
+<meta name="description" content="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。
+2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。
+3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC消息机制解析">
-<meta property="og:url" content="http://yoursite.com/2016/10/17/OCMessageAnalysis/index.html">
+<meta property="og:title" content="购物类App，先注册还是先浏览后有需求再注册">
+<meta property="og:url" content="http://liangce.space/FirstRegisterOrBrowser/index.html">
 <meta property="og:site_name" content="Liangce">
-<meta property="og:description" content="消息机制是OC Runtime的一个重要机制
-OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
-<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true">
-<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/2.png?raw=true">
-<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/3.png?raw=true">
-<meta property="og:updated_time" content="2016-10-18T12:32:10.000Z">
+<meta property="og:description" content="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。
+2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。
+3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找">
+<meta property="og:updated_time" content="2016-10-18T12:55:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC消息机制解析">
-<meta name="twitter:description" content="消息机制是OC Runtime的一个重要机制
-OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
-<meta name="twitter:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true">
+<meta name="twitter:title" content="购物类App，先注册还是先浏览后有需求再注册">
+<meta name="twitter:description" content="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。
+2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。
+3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找">
 
 
 
@@ -128,13 +127,13 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/17/OCMessageAnalysis/"/>
+  <link rel="canonical" href="http://liangce.space/FirstRegisterOrBrowser/"/>
 
 
 
 
 
-  <title> OC消息机制解析 | Liangce </title>
+  <title> 购物类App，先注册还是先浏览后有需求再注册 | Liangce </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -265,7 +264,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/17/OCMessageAnalysis/">
+  <link itemprop="mainEntityOfPage" href="http://liangce.space/FirstRegisterOrBrowser/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Liangce">
@@ -289,7 +288,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
             
             
               
-                OC消息机制解析
+                购物类App，先注册还是先浏览后有需求再注册
               
             
           </h1>
@@ -301,8 +300,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-17T12:43:18+08:00">
-              2016-10-17
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-24T20:51:34+08:00">
+              2016-04-24
             </time>
 
             &nbsp;|&nbsp;
@@ -310,7 +309,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-10-18T20:32:10+08:00">
+            <time title="Post modified" itemprop="dateModified" datetime="2016-10-18T20:55:07+08:00">
               2016-10-18
             </time>
             
@@ -325,8 +324,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS简笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS简笔记</span>
+                  <a href="/categories/产品/" itemprop="url" rel="index">
+                    <span itemprop="name">产品</span>
                   </a>
                 </span>
 
@@ -341,8 +340,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/17/OCMessageAnalysis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/17/OCMessageAnalysis/" itemprop="commentCount"></span>
+                <a href="/FirstRegisterOrBrowser/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="FirstRegisterOrBrowser/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -368,28 +367,15 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
       
 
       
-        <p>消息机制是OC Runtime的一个重要机制</p>
-<p>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br><a id="more"></a></p>
-<h2 id="如何通过对象找到调用函数的地址？"><a href="#如何通过对象找到调用函数的地址？" class="headerlink" title="如何通过对象找到调用函数的地址？"></a>如何通过对象找到调用函数的地址？</h2><p>@selector(testMethod:)会返回一个SEL变量,该变量以char *的形式将方法对应成一个唯一的值，实际上就是根据方法名hash化了的一个字符串，这个值会以key-value的形式标识对应的函数地址</p>
-<p>NSObject的成员属性中有一个指向对象的类的指针isa，如下：</p>
-<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true" alt="NSObject isa"></p>
-<p>由于NSObject是所有类的根类，那么任何类的实例都会有一个指向实例的类的isa指针，类在c中是以struct的形式存在，可以在<objc runtime.h="">中找到objc_class：</objc></p>
-<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/2.png?raw=true" alt="objc_class"></p>
-<p>objc_class中包含了:</p>
-<p><strong>isa</strong>: 类的isa指向它的metaclass</p>
-<p><strong>super_class</strong>：指向类的超类</p>
-<p><strong>name</strong>:类名 </p>
-<p><strong>version</strong>: 类的版本信息，初始化默认为0，可以通过runtime函数class_setVersion和class_getVersion进行修改、读取</p>
-<p><strong>info</strong>: 一些标识信息,如CLS_CLASS (0x1L) 表示该类为普通 class ，其中包含对象方法和成员变量;CLS_META (0x2L) 表示该类为 metaclass，其中包含类方法</p>
-<p><strong>instance_size</strong>: 该类的实例变量大小(包括从父类继承下来的实例变量)</p>
-<p><strong>ivars</strong>: 用于存储每个成员变量的地址</p>
-<p><strong>methodLists</strong>: 与 info 的一些标志位有关,如CLS_CLASS (0x1L),则存储对象方法，如CLS_META (0x2L)，则存储类方法</p>
-<p><strong>cache</strong>: 指向最近使用的方法的指针，用于提升效率</p>
-<p><strong>protocols</strong>: 存储该类遵守的协议</p>
-<h2 id="发送消息后如何查找方法"><a href="#发送消息后如何查找方法" class="headerlink" title="发送消息后如何查找方法"></a>发送消息后如何查找方法</h2><p>在程序运行时会给每个类的结构体分配一块空间，对象的isa指向的就是这块空间，所以当发送调用方法的消息后，runtime库会通过对象的isa找到类的结构体，然后通过SEL查找函数，先去objc_class的cache中查找，若不能找到，再去methodList中查找，若还不能找到，再去superClass中查找，找到后会将method放到对应objc_class的cache中，方便下次查找。</p>
-<p>通过SEL可以找到IMP，IMP是函数指针，指向方法实现，不同类可以有相同的SEL，但是对应IMP是不同的。找到方法实现后，将消息接受者对象、SEL、方法参数传递给方法实现，最终，将方法实现的返回值作为函数的返回值。</p>
-<h2 id="meta-class"><a href="#meta-class" class="headerlink" title="meta class"></a>meta class</h2><p>如果代码调用的是类方法，比如[NSString string]，那么objc_msgSend的第一个参数会传入该类的objc_class，然后通过它所指向的meta class去查找类方法。meta class用来存储类方法，类的元类会继承于类的超类的元类，类的元类的元类就是类的根类的元类，根类的superClass指向null，根类的元类的isa指向它自己。如下图：</p>
-<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/3.png?raw=true" alt="meta_class"></p>
+        <h2 id="首先分析注册-登录功能对于电商、O2O类产品的贡献作用。"><a href="#首先分析注册-登录功能对于电商、O2O类产品的贡献作用。" class="headerlink" title="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。"></a>首先分析注册/登录功能对于电商、O2O类产品的贡献作用。</h2><p>1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。</p>
+<p>2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。</p>
+<p>3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找到合适的选择，进行了账号登录的用户会对他们编写的评论更加负责。</p>
+<p>4.能利用反馈数据做更多的事情，例如根据用户的喜好推荐商品和服务，根据用户的属性特征定向的推广活动，引导用户转向社区从而增加产品黏性（如果有的话）等等。</p>
+<p>5.提高用户留存率，可以通过会员、积分等奖励制度提高用户活跃度。<br>那么对于注册/登录系统的两种方案：A.注册/登录置前，启动App立即要求登录。  B.注册/登录置后，用户可以先浏览商品，在下单、付费阶段引导用户登录。</p>
+<a id="more"></a>
+<h2 id="不同方案对于5个贡献作用的影响"><a href="#不同方案对于5个贡献作用的影响" class="headerlink" title="不同方案对于5个贡献作用的影响"></a>不同方案对于5个贡献作用的影响</h2><p>我们来分析AB方案对于以上5点贡献作用的影响，若采用方案A登录置前，对于作用1的影响要强于方案B，产品注册用户数量会得到提高。不过关于作用2345，选择方案A和方案B并没有什么差别。再来细看作用1，产品注册用户数的确是一个重要指标，但对于电商、O2O产品来说，还有很多更重要的指标，营业总额、利润率（商业价值），消费用户比率（产品价值），如果一味的提高用户总数，反而会降低消费用户比率，这会让人认为产品的功能、体验、用户质量存在不足。因此，单纯地提升注册用户数，未必会使产品数据更加好看。</p>
+<h2 id="消费用户总数"><a href="#消费用户总数" class="headerlink" title="消费用户总数"></a>消费用户总数</h2><p>另一方面，选用方案B不仅能提高消费用户占比，还能提升消费用户总数。假设我通过推广吸引了100个人安装App，若采用方案A，完成注册的用户可能还剩70人，这70人开始浏览商品，成为潜在消费用户，而方案B用户直接浏览商品，100个人都是潜在消费用户。因此采用方案B，潜在消费用户的基数变大了，最终转化成的消费用户就会更多。当然方案A的70人和方案B的100人转化率是有差别的，A的转化率要高一些，因为B在下单时多了一个注册/登录流程。但是采用方案B缩短的是体验流程路径，用户在决定下单前的浏览成本降低了。用户通过体验流程后会走向购买流程，虽然将注册/登录置后会延长购买路径，但这时用户已经决定购买了，注册/登录对用户购买意愿的影响就会减小很多。</p>
+<h2 id="让用户在不知不觉中注册"><a href="#让用户在不知不觉中注册" class="headerlink" title="让用户在不知不觉中注册"></a>让用户在不知不觉中注册</h2><p>方案B有一个优化的方式就是隐藏注册流程，当用户首次下单时，要填写收货地址、联系人姓名、手机号，手机号要进行短信验证。我们可以根据手机号直接生成用户账号，用户在下次使用App时，可以直接通过手机号+短信验证的方式完成登录，后续还可以通过一些奖励机制、功能解锁机制引导用户设置账号密码，填写昵称，上传头像等，从而完善了账号信息。</p>
 
       
     </div>
@@ -413,11 +399,9 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
       
         <div class="post-tags">
           
-            <a href="/tags/objc/" rel="tag"># objc</a>
+            <a href="/tags/注册/" rel="tag"># 注册</a>
           
-            <a href="/tags/消息机制/" rel="tag"># 消息机制</a>
-          
-            <a href="/tags/runtime/" rel="tag"># runtime</a>
+            <a href="/tags/购物/" rel="tag"># 购物</a>
           
         </div>
       
@@ -426,8 +410,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/24/FirstRegisterOrBrowser/" rel="next" title="购物类App，先注册还是先浏览后有需求再注册">
-                <i class="fa fa-chevron-left"></i> 购物类App，先注册还是先浏览后有需求再注册
+              <a href="/InnvationInTheRealWorld/" rel="next" title="真实世界的创新">
+                <i class="fa fa-chevron-left"></i> 真实世界的创新
               </a>
             
           </div>
@@ -436,8 +420,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/10/18/self-class-super-class/" rel="prev" title="self.class == super.class">
-                self.class == super.class <i class="fa fa-chevron-right"></i>
+              <a href="/OCMessageAnalysis/" rel="prev" title="OC消息机制解析">
+                OC消息机制解析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -470,8 +454,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/17/OCMessageAnalysis/"
-           data-title="OC消息机制解析" data-url="http://yoursite.com/2016/10/17/OCMessageAnalysis/">
+      <div class="ds-thread" data-thread-key="FirstRegisterOrBrowser/"
+           data-title="购物类App，先注册还是先浏览后有需求再注册" data-url="http://liangce.space/FirstRegisterOrBrowser/">
       </div>
     
   </div>
