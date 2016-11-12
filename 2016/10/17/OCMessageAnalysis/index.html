@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next muse use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="runtime,objc,消息机制," />
+  <meta name="keywords" content="objc,消息机制,runtime," />
 
 
 
@@ -107,13 +107,13 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"remove"},
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: '6350543795586598000',
-      author: 'Author'
+      userId: '0',
+      author: '博主'
     }
   };
 </script>
@@ -144,15 +144,6 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
   </script>
 
 
-
-  <script type="text/javascript">
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//tajs.qq.com/stats?sId=59409998";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
@@ -202,16 +193,6 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
           </a>
         </li>
       
@@ -383,11 +364,11 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
       
         <div class="post-tags">
           
-            <a href="/tags/runtime/" rel="tag">#runtime</a>
-          
             <a href="/tags/objc/" rel="tag">#objc</a>
           
             <a href="/tags/消息机制/" rel="tag">#消息机制</a>
+          
+            <a href="/tags/runtime/" rel="tag">#runtime</a>
           
         </div>
       
@@ -460,6 +441,100 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
 
         </div>
         
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.soideas.cn/uploads/allimg/140608/3-www.soideas.cn14060R05238.jpg"
+               alt="Liangce" />
+          <p class="site-author-name" itemprop="name">Liangce</p>
+          <p class="site-description motion-element" itemprop="description">Keep Raticent, Keep Crazy.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何通过对象找到调用函数的地址？"><span class="nav-number">1.</span> <span class="nav-text">如何通过对象找到调用函数的地址？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送消息后如何查找方法"><span class="nav-number">2.</span> <span class="nav-text">发送消息后如何查找方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#meta-class"><span class="nav-number">3.</span> <span class="nav-text">meta class</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
       </div>
     </main>
 
@@ -482,7 +557,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
 <div class="theme-info">
   Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Muse
   </a>
 </div>
 
