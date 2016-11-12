@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="runtime,objc,消息机制," />
+  <meta name="keywords" content="kvo,runtime,objc," />
 
 
 
@@ -84,23 +84,19 @@
 
 
 
-<meta name="description" content="消息机制是OC Runtime的一个重要机制
-OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
+<meta name="description" content="KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。
+KVO原理简述首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC消息机制解析">
-<meta property="og:url" content="http://yoursite.com/2016/10/17/OCMessageAnalysis/index.html">
+<meta property="og:title" content="KVOSimulate">
+<meta property="og:url" content="http://yoursite.com/2016/11/04/KVOSimulate/index.html">
 <meta property="og:site_name" content="Liangce">
-<meta property="og:description" content="消息机制是OC Runtime的一个重要机制
-OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
-<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true">
-<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/2.png?raw=true">
-<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/3.png?raw=true">
-<meta property="og:updated_time" content="2016-10-18T12:32:10.000Z">
+<meta property="og:description" content="KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。
+KVO原理简述首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建">
+<meta property="og:updated_time" content="2016-11-04T08:51:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC消息机制解析">
-<meta name="twitter:description" content="消息机制是OC Runtime的一个重要机制
-OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到tes">
-<meta name="twitter:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true">
+<meta name="twitter:title" content="KVOSimulate">
+<meta name="twitter:description" content="KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。
+KVO原理简述首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建">
 
 
 
@@ -118,7 +114,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
   };
 </script>
 
-  <title> OC消息机制解析 | Liangce </title>
+  <title> KVOSimulate | Liangce </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -248,7 +244,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
             
             
               
-                OC消息机制解析
+                KVOSimulate
               
             
           </h1>
@@ -260,8 +256,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-17T12:43:18+08:00" content="2016-10-17">
-              2016-10-17
+            <time itemprop="dateCreated" datetime="2016-11-04T16:36:26+08:00" content="2016-11-04">
+              2016-11-04
             </time>
           </span>
 
@@ -290,8 +286,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/17/OCMessageAnalysis/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/17/OCMessageAnalysis/" itemprop="commentsCount"></span>
+                <a href="/2016/11/04/KVOSimulate/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/04/KVOSimulate/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -314,28 +310,125 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
       
 
       
-        <p>消息机制是OC Runtime的一个重要机制</p>
-<p>OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段，编译器并不清楚方法testMethod:在哪里，方法调用实际是在运行时才向myObj发送消息。编译器将代码转为objc_msgSend(myObj, @selector(testMethod:), arg), 在objc_msgSend函数中，通过myObj找到testMethod:函数的地址，调用函数，若无法找到，则抛出异常。<br><a id="more"></a></p>
-<h2 id="如何通过对象找到调用函数的地址？"><a href="#如何通过对象找到调用函数的地址？" class="headerlink" title="如何通过对象找到调用函数的地址？"></a>如何通过对象找到调用函数的地址？</h2><p>@selector(testMethod:)会返回一个SEL变量,该变量以char *的形式将方法对应成一个唯一的值，实际上就是根据方法名hash化了的一个字符串，这个值会以key-value的形式标识对应的函数地址</p>
-<p>NSObject的成员属性中有一个指向对象的类的指针isa，如下：</p>
-<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/1.png?raw=true" alt="NSObject isa"></p>
-<p>由于NSObject是所有类的根类，那么任何类的实例都会有一个指向实例的类的isa指针，类在c中是以struct的形式存在，可以在<objc runtime.h="">中找到objc_class：</objc></p>
-<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/2.png?raw=true" alt="objc_class"></p>
-<p>objc_class中包含了:</p>
-<p><strong>isa</strong>: 类的isa指向它的metaclass</p>
-<p><strong>super_class</strong>：指向类的超类</p>
-<p><strong>name</strong>:类名 </p>
-<p><strong>version</strong>: 类的版本信息，初始化默认为0，可以通过runtime函数class_setVersion和class_getVersion进行修改、读取</p>
-<p><strong>info</strong>: 一些标识信息,如CLS_CLASS (0x1L) 表示该类为普通 class ，其中包含对象方法和成员变量;CLS_META (0x2L) 表示该类为 metaclass，其中包含类方法</p>
-<p><strong>instance_size</strong>: 该类的实例变量大小(包括从父类继承下来的实例变量)</p>
-<p><strong>ivars</strong>: 用于存储每个成员变量的地址</p>
-<p><strong>methodLists</strong>: 与 info 的一些标志位有关,如CLS_CLASS (0x1L),则存储对象方法，如CLS_META (0x2L)，则存储类方法</p>
-<p><strong>cache</strong>: 指向最近使用的方法的指针，用于提升效率</p>
-<p><strong>protocols</strong>: 存储该类遵守的协议</p>
-<h2 id="发送消息后如何查找方法"><a href="#发送消息后如何查找方法" class="headerlink" title="发送消息后如何查找方法"></a>发送消息后如何查找方法</h2><p>在程序运行时会给每个类的结构体分配一块空间，对象的isa指向的就是这块空间，所以当发送调用方法的消息后，runtime库会通过对象的isa找到类的结构体，然后通过SEL查找函数，先去objc_class的cache中查找，若不能找到，再去methodList中查找，若还不能找到，再去superClass中查找，找到后会将method放到对应objc_class的cache中，方便下次查找。</p>
-<p>通过SEL可以找到IMP，IMP是函数指针，指向方法实现，不同类可以有相同的SEL，但是对应IMP是不同的。找到方法实现后，将消息接受者对象、SEL、方法参数传递给方法实现，最终，将方法实现的返回值作为函数的返回值。</p>
-<h2 id="meta-class"><a href="#meta-class" class="headerlink" title="meta class"></a>meta class</h2><p>如果代码调用的是类方法，比如[NSString string]，那么objc_msgSend的第一个参数会传入该类的objc_class，然后通过它所指向的meta class去查找类方法。meta class用来存储类方法，类的元类会继承于类的超类的元类，类的元类的元类就是类的根类的元类，根类的superClass指向null，根类的元类的isa指向它自己。如下图：</p>
-<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/OCMessageAnalysis/3.png?raw=true" alt="meta_class"></p>
+        <p>KVO，即Key-Value Observing，是OC的一种机制，允许对象监听其他对象的属性，当属性值发生改变时获得函数回调。KVO的特点是不需要修改被监听的对象即可实现通知功能，这一功能的实现就是利用了OC强大的Runtime特性。因此我们通过Runtime来模拟一个KVO的实现，从而进一步理解KVO。</p>
+<h2 id="KVO原理简述"><a href="#KVO原理简述" class="headerlink" title="KVO原理简述"></a>KVO原理简述</h2><p>首先简述下KVO的实现原理，当调用给对象添加监听者的方法时，OC会动态的创建一个该对象的子类，在子类中重写被监控属性的setter方法，在重写的setter方法中，子类会调用父类的setter方法，并且在setter方法执行的前后调用监听者的回调函数。同时，子类还会重写getClass方法，使其返回父类的Class，从而完成类的伪装。创建完子类之后，OC会将被监听对象isa指针指向新创建的子类，这样当子类调用相应属性的setter方法时，就会执行新的方法。<br><a id="more"></a></p>
+<h2 id="KVO的缺陷"><a href="#KVO的缺陷" class="headerlink" title="KVO的缺陷"></a>KVO的缺陷</h2><p>KVO的功能并不全面，使用起来也有很多局限性。例如，KVO不支持自定义的selector，也不支持block，所有的通知都要在指定的回调函数中接收。另外，监听者的父类也有可能监听了一些对象属性，如果没有在子类中调用父类的方法，就会是父类的监听失效，而且，监听者是父类还是子类主要靠context来区分，一旦在子类监听中定义的context与父类重名，一方面父类的监听会失效，另一方面同一个keypath进行两次removeObserver操作会导致程序crash。</p>
+<h2 id="KVO具体实现过程"><a href="#KVO具体实现过程" class="headerlink" title="KVO具体实现过程"></a>KVO具体实现过程</h2><p>接下来我们通过代码来演示KVO的实现过程</p>
+<p>1.首先我们新建了一个NSObject类的Category，添加三个方法，分别是添加监听者、移除监听者以及属性值改变时的回调方法。<br>@interface NSObject (LKVO)</p>
+<ul>
+<li><p>(void)l_addObserver:(NSObject <em>)observer withKeyPath:(NSString </em>)keyPath;</p>
+</li>
+<li><p>(void) l_observingWithKeyPath:(NSString <em>)keyPath object:(NSObject </em>)observed change:(NSDictionary *)change;</p>
+</li>
+<li><p>(void)l_removeObserver:(NSObject <em>)observer keyPath:(NSString </em>)keyPath;</p>
+</li>
+</ul>
+<p>@end</p>
+<p>2.接下来实现l_addObserver:withKeyPath:方法</p>
+<pre><code>- (void)l_addObserver:(NSObject *)observer withKeyPath:(NSString *)keyPath {
+
+// 1.create KVO class
+Class obj_class = object_getClass(self);
+char const *class_name = class_getName(obj_class);
+
+char kvo_class_name[strlen(class_name)+strlen(LKVO_suffix)+1];
+strcpy(kvo_class_name, class_name);
+strcat(kvo_class_name, LKVO_suffix);
+
+Class kvo_class = objc_getClass(kvo_class_name);
+if (!kvo_class) {
+    kvo_class = objc_allocateClassPair(obj_class, kvo_class_name, 0);
+    objc_registerClassPair(kvo_class);
+
+    // 2.override getClass method
+    class_replaceMethod(kvo_class, NSSelectorFromString(@&quot;class&quot;), (IMP)fakeClassMethod, &quot;@@:&quot;);
+
+}
+
+// 3.replace setter method
+NSString *methodName = [NSString stringWithFormat:@&quot;%@%@&quot;, [[keyPath substringWithRange:NSMakeRange(0, 1)] uppercaseString], [keyPath substringWithRange:NSMakeRange(1, keyPath.length-1)]];
+NSString *selName = [NSString stringWithFormat:@&quot;set%@:&quot;, methodName];
+SEL selector = NSSelectorFromString(selName);
+class_replaceMethod(kvo_class, selector, (IMP)methodSetter, &quot;v@:@&quot;);
+
+// 4.change isa to KVO class
+object_setClass(self, kvo_class);
+
+
+// 5.associate observer with observed
+NSString *keyName = [NSString stringWithFormat:@&quot;%@%@&quot;, [[keyPath substringWithRange:NSMakeRange(0, 1)] lowercaseString], [keyPath substringWithRange:NSMakeRange(1, keyPath.length-1)]];
+id dict = objc_getAssociatedObject(self, key_associated);
+NSMutableDictionary *mDict = nil;
+if (dict &amp;&amp; [dict isKindOfClass:[NSDictionary class]]) {
+    mDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+} else {
+    mDict = [[NSMutableDictionary alloc] init];
+}
+NSMutableArray *array = [mDict valueForKey:keyPath];
+if (!array || ![array isKindOfClass:[NSMutableArray class]]) {
+    array = [[NSMutableArray alloc] init];
+}
+if (![array containsObject:observer]) {
+    [array addObject:observer];
+}
+[mDict setValue:array forKey:keyName];
+
+objc_setAssociatedObject(self, key_associated, mDict, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+</code></pre><p>}</p>
+<p>在这个方法中，第一步我们创建新类的名字，即原类名加上LKVO的后缀，然后在Runtime中搜索这个类，如果没有搜到，就新创建一个。第二步创建类的过程中替换他的getClass方法，替换如下：</p>
+<pre><code>Class fakeClassMethod(id self, SEL _cmd) {
+
+Class super_class = class_getSuperclass(object_getClass(self));
+struct objc_super *super = (struct objc_super *)malloc(sizeof(struct objc_super));
+super-&gt;receiver = self;
+super-&gt;super_class = super_class;
+
+typedef void (*MsgSendType)(struct objc_super*, SEL);
+MsgSendType msgSendType = (MsgSendType)objc_msgSendSuper;
+free(super);
+
+msgSendType(super, _cmd);
+return super_class;
+
+}
+</code></pre><p>在替换方法中会调用一次super的方法，但并不会返回super方法的返回值，因为super.class返回的依旧是Class Person，因此要返回通过class_getSuperclass获取的父类。值得注意的是，如果使用者重写了Person的getClass方法，比如让它返回个[NSString class]，那么调用[Person class]返回的依旧是Person，原因就在于方法被重写了，使用官方的KVO也会有这样的问题。</p>
+<p>第三步向新类中添加或替换相应属性的setter方法，当新类中不包含该方法时，class_replaceMethod会调用class_addMethod。</p>
+<p>第四步调用object_setClass，将self的isa指向新类。</p>
+<p>第五步要建立一个NSDictionary，并将它与对象绑定起来，NSDictionary中要存储每个keypath对应的监听者对象的数组，当调用setter方法时，会通过NSDictionary找到keypath对应的NSArray，对NSArray中的每一个监听者调用<br>l_observingWithKeyPath:object:change:方法。</p>
+<p>接下来就要重写setter的方法：</p>
+<pre><code>void methodSetter(id self, SEL _cmd, NSObject *newValue) {
+
+// invoke setter method from superClass
+struct objc_super *super = (struct objc_super *)malloc(sizeof(struct objc_super));
+super-&gt;receiver = self;
+super-&gt;super_class = class_getSuperclass(object_getClass(self));
+typedef void (*MsgSendType)(struct objc_super*, SEL, NSObject*);
+MsgSendType msgSend = (MsgSendType)objc_msgSendSuper;
+msgSend(super, _cmd, newValue);
+free(super);
+
+// get key path
+NSString *methodName = NSStringFromSelector(_cmd);
+methodName = [methodName substringWithRange:NSMakeRange(3, methodName.length-4)];
+NSString *keyPath = nil;
+if (methodName.length == 1) {
+    keyPath = [methodName lowercaseString];
+} else {
+    keyPath = [NSString stringWithFormat:@&quot;%@%@&quot;, [[methodName substringWithRange:NSMakeRange(0, 1)] lowercaseString], [methodName substringWithRange:NSMakeRange(1, methodName.length-1)]];
+}
+
+// invoke observing method
+NSDictionary *dict = objc_getAssociatedObject(self, key_associated);
+NSArray *array = [dict valueForKey:keyPath];
+if (array &amp;&amp; [array isKindOfClass:[NSArray class]]) {
+    for (NSObject *obj in array) {
+        [obj l_observingWithKeyPath:keyPath object:self change:@{@&quot;newValue&quot;:newValue}];
+    }
+}
+
+}
+</code></pre><p>首先要调用父类的setter方法，这样就完成了属性的赋值并且执行了使用者在setter中添加的其他代码。然后通过传入的SEL _cmd来获取方法名，通过方法名获取keypath的值。最后一步通过keypath在绑定的NSDictionary中找到监听改属性的对象的NSArray，依次调用他们的l_observingWithKeyPath:object:change:方法。</p>
+<p>最后附上示例代码地址<a href="https://github.com/zyuce/LKVO_Simulate" target="_blank" rel="external">https://github.com/zyuce/LKVO_Simulate</a></p>
 
       
     </div>
@@ -357,11 +450,11 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
       
         <div class="post-tags">
           
+            <a href="/tags/kvo/" rel="tag">#kvo</a>
+          
             <a href="/tags/runtime/" rel="tag">#runtime</a>
           
             <a href="/tags/objc/" rel="tag">#objc</a>
-          
-            <a href="/tags/消息机制/" rel="tag">#消息机制</a>
           
         </div>
       
@@ -370,17 +463,13 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/24/FirstRegisterOrBrowser/" rel="next" title="购物类App，先注册还是先浏览后有需求再注册">
-                <i class="fa fa-chevron-left"></i> 购物类App，先注册还是先浏览后有需求再注册
+              <a href="/2016/10/30/WeeklyDiary20161030/" rel="next" title="The Trip of Fragrance Hills">
+                <i class="fa fa-chevron-left"></i> The Trip of Fragrance Hills
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/18/self-class-super-class/" rel="prev" title="self.class == super.class">
-                self.class == super.class <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -395,10 +484,10 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/10/17/OCMessageAnalysis/"
-     data-title="OC消息机制解析"
+        <div class="ds-share flat" data-thread-key="2016/11/04/KVOSimulate/"
+     data-title="KVOSimulate"
      data-content=""
-     data-url="http://yoursite.com/2016/10/17/OCMessageAnalysis/">
+     data-url="http://yoursite.com/2016/11/04/KVOSimulate/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -425,8 +514,8 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/17/OCMessageAnalysis/"
-           data-title="OC消息机制解析" data-url="http://yoursite.com/2016/10/17/OCMessageAnalysis/">
+      <div class="ds-thread" data-thread-key="2016/11/04/KVOSimulate/"
+           data-title="KVOSimulate" data-url="http://yoursite.com/2016/11/04/KVOSimulate/">
       </div>
     
   </div>
@@ -517,7 +606,7 @@ OC中的对象在调用方法时，如[myObj testMethod:arg]，在编译阶段�
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何通过对象找到调用函数的地址？"><span class="nav-number">1.</span> <span class="nav-text">如何通过对象找到调用函数的地址？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送消息后如何查找方法"><span class="nav-number">2.</span> <span class="nav-text">发送消息后如何查找方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#meta-class"><span class="nav-number">3.</span> <span class="nav-text">meta class</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO原理简述"><span class="nav-number">1.</span> <span class="nav-text">KVO原理简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO的缺陷"><span class="nav-number">2.</span> <span class="nav-text">KVO的缺陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO具体实现过程"><span class="nav-number">3.</span> <span class="nav-text">KVO具体实现过程</span></a></li></ol></div>
             
           </div>
         </section>
