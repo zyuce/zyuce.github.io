@@ -1,0 +1,632 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="注册,购物," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。
+2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。
+3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找">
+<meta property="og:type" content="article">
+<meta property="og:title" content="购物类App，先注册还是先浏览后有需求再注册">
+<meta property="og:url" content="http://yoursite.com/2016/04/24/FirstRegisterOrBrowser/index.html">
+<meta property="og:site_name" content="Liangce">
+<meta property="og:description" content="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。
+2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。
+3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找">
+<meta property="og:updated_time" content="2016-10-18T12:55:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="购物类App，先注册还是先浏览后有需求再注册">
+<meta name="twitter:description" content="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。
+2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。
+3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"remove"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6350543795586598000',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/24/FirstRegisterOrBrowser/"/>
+
+
+
+
+
+  <title> 购物类App，先注册还是先浏览后有需求再注册 | Liangce </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50b63aece88d7b294d72fec0deb27cc3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Liangce</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Stay hungry, Stay foolish.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/24/FirstRegisterOrBrowser/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Liangce">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://www.soideas.cn/uploads/allimg/140608/3-www.soideas.cn14060R05238.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Liangce">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Liangce" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                购物类App，先注册还是先浏览后有需求再注册
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-24T20:51:34+08:00">
+              2016-04-24
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2016-10-18T20:55:07+08:00">
+              2016-10-18
+            </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/产品/" itemprop="url" rel="index">
+                    <span itemprop="name">产品</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/24/FirstRegisterOrBrowser/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/24/FirstRegisterOrBrowser/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="首先分析注册-登录功能对于电商、O2O类产品的贡献作用。"><a href="#首先分析注册-登录功能对于电商、O2O类产品的贡献作用。" class="headerlink" title="首先分析注册/登录功能对于电商、O2O类产品的贡献作用。"></a>首先分析注册/登录功能对于电商、O2O类产品的贡献作用。</h2><p>1.确定产品用户数，用户数是产品的一个指标，较高的用户数会吸引更多的商户、代理商，也更容易赢得投资者的青睐。</p>
+<p>2.同步消费信息，可以记录并呈现用户的收藏、订单、商品物流、服务人员状态，这些内容使得流程更加完整化，优化用户的消费体验。</p>
+<p>3.构建评价体系，评价体系对于电商、O2O十分重要，可以鼓励商家提供更好的服务、更优质的商品，也帮助用户快速找到合适的选择，进行了账号登录的用户会对他们编写的评论更加负责。</p>
+<p>4.能利用反馈数据做更多的事情，例如根据用户的喜好推荐商品和服务，根据用户的属性特征定向的推广活动，引导用户转向社区从而增加产品黏性（如果有的话）等等。</p>
+<p>5.提高用户留存率，可以通过会员、积分等奖励制度提高用户活跃度。<br>那么对于注册/登录系统的两种方案：A.注册/登录置前，启动App立即要求登录。  B.注册/登录置后，用户可以先浏览商品，在下单、付费阶段引导用户登录。</p>
+<a id="more"></a>
+<h2 id="不同方案对于5个贡献作用的影响"><a href="#不同方案对于5个贡献作用的影响" class="headerlink" title="不同方案对于5个贡献作用的影响"></a>不同方案对于5个贡献作用的影响</h2><p>我们来分析AB方案对于以上5点贡献作用的影响，若采用方案A登录置前，对于作用1的影响要强于方案B，产品注册用户数量会得到提高。不过关于作用2345，选择方案A和方案B并没有什么差别。再来细看作用1，产品注册用户数的确是一个重要指标，但对于电商、O2O产品来说，还有很多更重要的指标，营业总额、利润率（商业价值），消费用户比率（产品价值），如果一味的提高用户总数，反而会降低消费用户比率，这会让人认为产品的功能、体验、用户质量存在不足。因此，单纯地提升注册用户数，未必会使产品数据更加好看。</p>
+<h2 id="消费用户总数"><a href="#消费用户总数" class="headerlink" title="消费用户总数"></a>消费用户总数</h2><p>另一方面，选用方案B不仅能提高消费用户占比，还能提升消费用户总数。假设我通过推广吸引了100个人安装App，若采用方案A，完成注册的用户可能还剩70人，这70人开始浏览商品，成为潜在消费用户，而方案B用户直接浏览商品，100个人都是潜在消费用户。因此采用方案B，潜在消费用户的基数变大了，最终转化成的消费用户就会更多。当然方案A的70人和方案B的100人转化率是有差别的，A的转化率要高一些，因为B在下单时多了一个注册/登录流程。但是采用方案B缩短的是体验流程路径，用户在决定下单前的浏览成本降低了。用户通过体验流程后会走向购买流程，虽然将注册/登录置后会延长购买路径，但这时用户已经决定购买了，注册/登录对用户购买意愿的影响就会减小很多。</p>
+<h2 id="让用户在不知不觉中注册"><a href="#让用户在不知不觉中注册" class="headerlink" title="让用户在不知不觉中注册"></a>让用户在不知不觉中注册</h2><p>方案B有一个优化的方式就是隐藏注册流程，当用户首次下单时，要填写收货地址、联系人姓名、手机号，手机号要进行短信验证。我们可以根据手机号直接生成用户账号，用户在下次使用App时，可以直接通过手机号+短信验证的方式完成登录，后续还可以通过一些奖励机制、功能解锁机制引导用户设置账号密码，填写昵称，上传头像等，从而完善了账号信息。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/注册/" rel="tag"># 注册</a>
+          
+            <a href="/tags/购物/" rel="tag"># 购物</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/14/InnvationInTheRealWorld/" rel="next" title="真实世界的创新">
+                <i class="fa fa-chevron-left"></i> 真实世界的创新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/17/OCMessageAnalysis/" rel="prev" title="OC消息机制解析">
+                OC消息机制解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/04/24/FirstRegisterOrBrowser/"
+     data-title="购物类App，先注册还是先浏览后有需求再注册"
+     data-content=""
+     data-url="http://yoursite.com/2016/04/24/FirstRegisterOrBrowser/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/24/FirstRegisterOrBrowser/"
+           data-title="购物类App，先注册还是先浏览后有需求再注册" data-url="http://yoursite.com/2016/04/24/FirstRegisterOrBrowser/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liangce</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lioncez"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
