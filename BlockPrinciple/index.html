@@ -87,7 +87,7 @@
 <meta name="description" content="Block是什么？Block实际上是Objective-C对闭包的实现。
 关于闭包的概念：        In programming languages, a closure is a function or reference to a function together with a referencing environment—a table storing a reference to">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BlockPrinciple">
+<meta property="og:title" content="Block原理解析">
 <meta property="og:url" content="http://yoursite.com/BlockPrinciple/index.html">
 <meta property="og:site_name" content="Liangce">
 <meta property="og:description" content="Block是什么？Block实际上是Objective-C对闭包的实现。
@@ -128,9 +128,9 @@
 <meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/34.png?raw=true">
 <meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/35.png?raw=true">
 <meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/36.png?raw=true">
-<meta property="og:updated_time" content="2016-12-12T12:18:51.000Z">
+<meta property="og:updated_time" content="2016-12-12T12:22:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BlockPrinciple">
+<meta name="twitter:title" content="Block原理解析">
 <meta name="twitter:description" content="Block是什么？Block实际上是Objective-C对闭包的实现。
 关于闭包的概念：        In programming languages, a closure is a function or reference to a function together with a referencing environment—a table storing a reference to">
 <meta name="twitter:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/1.png?raw=true">
@@ -167,7 +167,7 @@
 
 
 
-  <title> BlockPrinciple | Liangce </title>
+  <title> Block原理解析 | Liangce </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -322,7 +322,7 @@
             
             
               
-                BlockPrinciple
+                Block原理解析
               
             
           </h1>
@@ -343,7 +343,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-check-o"></i>
             </span>
-            <time title="Post modified" itemprop="dateModified" datetime="2016-12-12T20:18:51+08:00">
+            <time title="Post modified" itemprop="dateModified" datetime="2016-12-12T20:22:27+08:00">
               2016-12-12
             </time>
             
@@ -429,7 +429,7 @@
 <p>6.<strong>variables</strong>，截取过来的变量，Block能够访问它外部的局部变量，就是因为将这些变量（或变量的地址）复制到了结构体中。</p>
 <p>额外的说下，虽然结构体的嵌套有差别，但本质是一样的，结构体本身并不带有任何额外信息，下图中TestA和TestB在内存上是完全一样的：</p>
 <p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/5.png?raw=true" alt=""></p>
-<p>另外再说下clang得到的cpp中关于block的调用方式：<br>    ((void (*)(__block_impl *))((__block_impl *)blk)-&gt;FuncPtr)((__block_impl *)blk);<br>这里有一个有意思的强制转换，就是将指向__main_block_impl_0的blk强转成子结构体__block_impl，然后直接调用__block_impl的FuncPtr（函数指针）。可以这样强转的原因在于__block<em>impl位于\</em>_main_block_impl_0的最顶部。举个例子，如下图所示：</p>
+<p>另外再说下clang得到的cpp中关于block的调用方式：<br>    ((void (*)(__block_impl *))((__block_impl *)blk)-&gt;FuncPtr)((__block_impl *)blk);<br>这里有一个有意思的强制转换，就是将指向__main_block_impl_0的blk强转成子结构体__block_impl，然后直接调用__block_impl的FuncPtr（函数指针）。可以这样强转的原因在于__block_impl位于__main_block_impl_0的最顶部。举个例子，如下图所示：</p>
 <p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/6.png?raw=true" alt=""></p>
 <p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/7.png?raw=true" alt=""></p>
 <p>上图两次输出的数字分别是2和1。第二次强转所获得的valueB所存储的值，实际上是TestB中的变量a，因为它是TestB最顶部的int值。结构体的本质是，我们和C语言约定了一段内存空间的长短，及其内容的安排，它和int等类型一样，都是数据类型，其他类型怎么转换，结构体就怎么转换。当把TestB强转成ValueB后，会按照ValueB的格局对该内存空间进行解释，而这段内存的第一段长度等于int类型的空间存储的是TestB的a的值，即为1。</p>
@@ -560,7 +560,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="BlockPrinciple/"
-           data-title="BlockPrinciple" data-url="http://yoursite.com/BlockPrinciple/">
+           data-title="Block原理解析" data-url="http://yoursite.com/BlockPrinciple/">
       </div>
     
   </div>
