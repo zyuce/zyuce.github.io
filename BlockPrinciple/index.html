@@ -1,0 +1,724 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="block,objc,clang," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Block是什么？Block实际上是Objective-C对闭包的实现。
+关于闭包的概念：        In programming languages, a closure is a function or reference to a function together with a referencing environment—a table storing a reference to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BlockPrinciple">
+<meta property="og:url" content="http://yoursite.com/BlockPrinciple/index.html">
+<meta property="og:site_name" content="Liangce">
+<meta property="og:description" content="Block是什么？Block实际上是Objective-C对闭包的实现。
+关于闭包的概念：        In programming languages, a closure is a function or reference to a function together with a referencing environment—a table storing a reference to">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/1.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/2.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/3.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/4.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/5.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/6.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/7.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/8.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/9.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/10.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/11.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/12.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/13.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/14.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/15.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/16.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/17.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/18.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/19.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/20.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/21.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/22.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/23.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/24.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/25.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/26.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/27.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/28.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/29.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/30.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/31.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/32.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/33.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/34.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/35.png?raw=true">
+<meta property="og:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/36.png?raw=true">
+<meta property="og:updated_time" content="2016-12-12T12:18:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BlockPrinciple">
+<meta name="twitter:description" content="Block是什么？Block实际上是Objective-C对闭包的实现。
+关于闭包的概念：        In programming languages, a closure is a function or reference to a function together with a referencing environment—a table storing a reference to">
+<meta name="twitter:image" content="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/1.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"remove"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6350543795586598000',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/BlockPrinciple/"/>
+
+
+
+
+
+  <title> BlockPrinciple | Liangce </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50b63aece88d7b294d72fec0deb27cc3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Liangce</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Stay hungry, Stay foolish.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/BlockPrinciple/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Liangce">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://www.soideas.cn/uploads/allimg/140608/3-www.soideas.cn14060R05238.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Liangce">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Liangce" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                BlockPrinciple
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-12T19:23:59+08:00">
+              2016-12-12
+            </time>
+
+            &nbsp;|&nbsp;
+
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-check-o"></i>
+            </span>
+            <time title="Post modified" itemprop="dateModified" datetime="2016-12-12T20:18:51+08:00">
+              2016-12-12
+            </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS简笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS简笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/BlockPrinciple/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="BlockPrinciple/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Block是什么？"><a href="#Block是什么？" class="headerlink" title="Block是什么？"></a>Block是什么？</h1><p>Block实际上是Objective-C对闭包的实现。</p>
+<p>关于闭包的概念：<br>        In programming languages, a closure is a function or reference to a function together with a referencing environment—a table storing a reference to each of the non-local variables (also called free variables or upvalues) of that function.<br>    闭包是包含了非本地变量（也叫作自由变量或upvalues）的函数或函数的引用，这些变量不是在这个代码块内或者任何全局上下文中定义的，而是在定义代码块的环境中定义（局部变量）。<br><a id="more"></a></p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>文章的结构，将分为三个部分，具体如下：</p>
+<pre><code>一.阅读C++中的Block源码
+    1.最简单的Block
+    2.截取自由变量的Block
+    3.使用__block的Block
+二.3种Block对象类型
+    1._NSConcreteGlobalBlock
+    2._NSConcreteStackBloc    
+    3._NSConcreteMallocBlock
+三.循环引用ARC
+</code></pre><h2 id="一-阅读C-中的Block源码"><a href="#一-阅读C-中的Block源码" class="headerlink" title="一.阅读C++中的Block源码"></a>一.阅读C++中的Block源码</h2><p>Block实际上是作为极普通的C语言源代码来处理的，通过支持Block的编译器，含有Block语法的源代码转换为一般C语言编译器能够处理的源代码，并作为极为普通的C语言源代码被编译。我们可以在终端通过clang（LLVM编译器）将Objective-C的代码转换为C++源代码，具体指令为：clang -rewrite-objc 源代码文件名，即可在文件目录下生成相应的同名cpp文件。</p>
+<h3 id="1-最简单的Block"><a href="#1-最简单的Block" class="headerlink" title="1.最简单的Block"></a>1.最简单的Block</h3><p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/1.png?raw=true" alt=""></p>
+<p>这是一个最简单的block，没有任何外部变量，只在block块中执行一条printf语句。我们通过clang将main.m转换为main.cpp。通过sublime text打开cpp文件，会看到将近10万行的代码，直接滑动到文件最下方，找到我们需要的学习的代码，如下图所示：</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/2.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/3.png?raw=true" alt=""></p>
+<p>在main函数中可以看到两行关于block的代码，第一行是声明、初始化blk变量，第二行则是调用block方法。blk变量被指向了一个叫做__main_block_impl_0的结构体，结构体的构造方法中要传入两个参数，一个是void *fp，表示函数指针，另一个是__main_block_desc_0，存储了block的描述信息。函数指针指向的是__main_block_func_0，这是一个static函数，函数中只有一行代码，就是我们要执行的printf语句。可以看到__main_block_func_0函数有一个传参struct __main_block_impl_0 *__cself，表示block本身，用途类似于OC消息机制要传入self，由于blk没有引用外部变量，所以在当前的函数中没有使用到__cself。__main_block_desc_0有一个静态的结构体实例__main_block_desc_0_DATA，在初始化blk变量的时候传入的就是这个实例，在该结构体中有保留值reserved，以及block的大小Block_size。<br>__main_block_impl_0中包含了一个通用struct，__block_impl。所有的block都会包含这个结构体，变量FuncPtr就是函数指针，可以看到该结构体包含了isa指针，表明Block本质上也是个OC对象。图中isa赋值的_NSConcreteStackBlock就是其中一种Block类。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/4.png?raw=true" alt=""></p>
+<p>关于Block的结构，有如上一个导图。该结构和clang分析出来的本质是一样的，只是变量名和结构体嵌套略微不同。invoke就是函数指针，由于我们没有使用外部变量，所以不存在variables和descriptor中的copy、dispose。</p>
+<p>1.<strong>isa指针</strong>，所有对象都有该指针，用于实现对象相关的功能。</p>
+<p>2.<strong>flags</strong>，用于按bit位表示一些block的附加信息，block copy的实现代码可以看到对该变量的使用。</p>
+<p>3.<strong>reserved</strong>，保留变量。</p>
+<p>4.<strong>invoke</strong>，函数指针，指向具体的Block实现的函数调用地址。</p>
+<p>5.<strong>descriptor</strong>，表示该Block的附加描述信息，主要是size大小，以及copy和dispose函数的指针。</p>
+<p>6.<strong>variables</strong>，截取过来的变量，Block能够访问它外部的局部变量，就是因为将这些变量（或变量的地址）复制到了结构体中。</p>
+<p>额外的说下，虽然结构体的嵌套有差别，但本质是一样的，结构体本身并不带有任何额外信息，下图中TestA和TestB在内存上是完全一样的：</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/5.png?raw=true" alt=""></p>
+<p>另外再说下clang得到的cpp中关于block的调用方式：<br>    ((void (*)(__block_impl *))((__block_impl *)blk)-&gt;FuncPtr)((__block_impl *)blk);<br>这里有一个有意思的强制转换，就是将指向__main_block_impl_0的blk强转成子结构体__block_impl，然后直接调用__block_impl的FuncPtr（函数指针）。可以这样强转的原因在于__block<em>impl位于\</em>_main_block_impl_0的最顶部。举个例子，如下图所示：</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/6.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/7.png?raw=true" alt=""></p>
+<p>上图两次输出的数字分别是2和1。第二次强转所获得的valueB所存储的值，实际上是TestB中的变量a，因为它是TestB最顶部的int值。结构体的本质是，我们和C语言约定了一段内存空间的长短，及其内容的安排，它和int等类型一样，都是数据类型，其他类型怎么转换，结构体就怎么转换。当把TestB强转成ValueB后，会按照ValueB的格局对该内存空间进行解释，而这段内存的第一段长度等于int类型的空间存储的是TestB的a的值，即为1。</p>
+<h3 id="2-截取自由变量的Block"><a href="#2-截取自由变量的Block" class="headerlink" title="2.截取自由变量的Block"></a>2.截取自由变量的Block</h3><p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/8.png?raw=true" alt=""></p>
+<p>我们这次在Block外部定义一个局部变量test_value，在Block的代码块中输出该变量。同样使用clang获取cpp文件如下：</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/9.png?raw=true" alt=""></p>
+<p>可以看到在__main_block_impl_0结构体中多了一个叫做test_value的int值。在__main_block_func_0中，首先通过__cself-&gt;test_value获取int值，然后再进行printf输出。注意到此处的test_value是属于Block中的一块内存空间，和Block外部的test_value没有了关联。<br>所谓的截取自动变量值，意味着在执行Block初始化语句时，将Block所使用的自动变量值保存到Block的结构体实例中，在Block内部修改该变量值并不能影响原先的变量。<br>如果在Block块中对test_value执行赋值语句，并不能改变Block外部的test_value变量，实际上，编译器会进行报错。</p>
+<h3 id="3-使用-block的Block"><a href="#3-使用-block的Block" class="headerlink" title="3.使用__block的Block"></a>3.使用__block的Block</h3><p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/10.png?raw=true" alt=""></p>
+<p>对Block外部变量添加__block修饰符就可以在Block块中对变量进行修改，我们通过clang看下它的实现原理。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/11.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/12.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/13.png?raw=true" alt=""></p>
+<p>这回代码多了很多东西，可以看到__main_block_impl_0中的test_value变成了一个指向__Block_byref_test_value_0的指针。在main函数中，初始化test_value并不是简单的新建一个int型变量，而是构造了一个__Block_byref_test_value_0的结构体。test_value变成了一个对象，在它的结构体中，属性test_value用来存储原先的int值，__forwarding指针指向了初始化的结构体本身，即使该结构体被拷贝到Block中，__forwarding指针仍然指向最初的那个结构体，所以使用该变量的方式是test_value-&gt;__forwarding-&gt;test_value。</p>
+<h2 id="二-3种Block对象类型"><a href="#二-3种Block对象类型" class="headerlink" title="二.3种Block对象类型"></a>二.3种Block对象类型</h2><p>由于Block也是Objective-C对象，所以它有相应的类。目前有三种Block类：</p>
+<p><strong>NSConcreteGlobalBlock</strong>，全局的静态Block，不会访问任何外部变量。</p>
+<p><strong>NSConcreteStackBlock</strong>，保存在栈中的Block，当函数返回时会被销毁。</p>
+<p><strong>NSConcreteMallocBlock</strong>，保存在堆中的Block，当引用计数为0时会被销毁。</p>
+<h3 id="1-NSConcreteGlobalBlock"><a href="#1-NSConcreteGlobalBlock" class="headerlink" title="1.NSConcreteGlobalBlock"></a>1.NSConcreteGlobalBlock</h3><p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/14.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/15.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/16.png?raw=true" alt=""></p>
+<p>这种情况的block是一个global类型，在通过NSLog输出为global类型，并且在clang的cpp文件中能看到impl的isa赋值成为了_NSConcreteGlobalBlock。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/17.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/18.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/19.png?raw=true" alt=""></p>
+<p>这种情况下的block仍然是global类型，通过NSLog输出的仍然是NSGlobalBlock。但是在clang转换的cpp中，由于clang改写的具体实现方式和LLVM不太一样，并且这里没有开启ARC，我们看到的isa指向的是stack类型。在开启ARC时，block应该是global类型。</p>
+<p>因为不需要对自动变量进行capture截获，所以Block用结构体实例的内容不依赖于执行时的状态，因此整个程序只需要一个实例。这样就可以将Block的结构体实例放在和全局变量相同的数据区域。</p>
+<p>判断是否为global类型的Block可以依据以下条件：</p>
+<p>1.记述全局变量的地方有Block语法时</p>
+<p>2.Block语法的表达式中不使用应截获的自动变量时</p>
+<h3 id="2-NSConcreteStackBlock"><a href="#2-NSConcreteStackBlock" class="headerlink" title="2.NSConcreteStackBlock"></a>2.NSConcreteStackBlock</h3><p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/20.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/21.png?raw=true" alt=""></p>
+<p>在MRC中调用了外部变量的Block就会是一个stack类型，在NSLog中可以看到。注意在ARC中已经不存在stack类型的Block了。</p>
+<h3 id="3-NSConcreteMallocBlock"><a href="#3-NSConcreteMallocBlock" class="headerlink" title="3.NSConcreteMallocBlock"></a>3.NSConcreteMallocBlock</h3><p>当Block从栈上复制到堆上时，isa就会被修改为malloc类型。Block执行copy方法就会进行栈到堆的拷贝，若已经是malloc类的Block，则会对Block的引用计数+1，若是global类型执行copy则不起任何作用。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/22.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/23.png?raw=true" alt=""></p>
+<p>上图为MRC环境下，将stack类型的block进行拷贝得到的对象就是malloc类型。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/24.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/25.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/26.png?raw=true" alt=""></p>
+<p>再次使用clang获取cpp代码，可以注意到，descriptor中有copy和dispose方法，就是在Block进行copy时对__block对象也进行引用计数操作。<br>栈上的__block变量会被复制到堆上，这时会将成员变量__forwarding的值替换成复制堆上的__block变量的地址</p>
+<p>什么时候会将栈上的Block复制到堆？</p>
+<p>在以前版本的ARC中：<br><br>1.调用Block的copy实例方法时<br><br>2.Block作为函数返回值返回时<br><br>3.将Block赋值给附有__strong修饰符id类型的类或Block类型成员变量时<br><br>4.在方法中含有usingBlock的Cocoa框架方法或GCD的API中传递Block时</p>
+<p><strong>现在，在ARC开启的情况下，将会只有NSConcreteGlobal和NSConcreteMallocBlock类型的block。由于ARC已经能很好的处理对象的声明周期的管理，这样所有对象都放到堆上管理，对于编译器实现来说，会比较方便。</strong></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/27.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/28.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/29.png?raw=true" alt=""></p>
+<p>查看以上代码生成的cpp文件，__block和descriptor中都有copy和dispose方法，descriptor中的方法用来对__block实例进行引用计数操作，__block中的方法用来对array进行引用计数操作。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/30.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/31.png?raw=true" alt=""></p>
+<p>上两张图的输出结果都是0，主要说下图二，Block持有了__block对象，但是__block对象无法持有__weak修饰的NSArray对象，所以执行Block方法块时NSArray对象已经被释放。</p>
+<h2 id="三-循环引用"><a href="#三-循环引用" class="headerlink" title="三.循环引用"></a>三.循环引用</h2><p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/32.png?raw=true" alt=""></p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/33.png?raw=true" alt=""></p>
+<p>执行上方的代码，Person的dealloc不会被调用，因为blk与Person实例相互引用了。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/34.png?raw=true" alt=""></p>
+<p>使用__block变量同样不能解决循环引用，因为Block引用了__block对象，__block对象引用了self，self引用了Block。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/35.png?raw=true" alt=""></p>
+<p>在Block代码块内对__block对象赋值nil可以避免循环引用，但是如果没有执行过Block或忘记赋值nil都会引起循环引用。使用__block的优点是，可控制变量的持有期。</p>
+<p><img src="https://github.com/zyuce/BlogData/blob/master/images/articles/iOS简笔记/BlockPrinciple/36.png?raw=true" alt=""></p>
+<p>使用__weak可以让Block无法持有Person实例，从而避免了循环引用。另外，为了方式在Block执行半途时Person实例被释放，通常在Block方法块中先创建一个__strong的Person指针对其进行持有，当Block方法块结束后，strongSelf就会被释放。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/block/" rel="tag"># block</a>
+          
+            <a href="/tags/objc/" rel="tag"># objc</a>
+          
+            <a href="/tags/clang/" rel="tag"># clang</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/AboutSelfDiscipline/" rel="next" title="我所认知的自律">
+                <i class="fa fa-chevron-left"></i> 我所认知的自律
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="BlockPrinciple/"
+           data-title="BlockPrinciple" data-url="http://yoursite.com/BlockPrinciple/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liangce</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lioncez"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
